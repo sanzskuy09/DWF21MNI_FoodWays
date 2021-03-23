@@ -36,3 +36,176 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* Navbar */
+.navbar{
+  height: 91px;
+}
+
+.navbar-color{
+  background-color:#FFC700;
+}
+
+.navbar .container-fluid .navbar-brand .brand-title{
+  color: black;
+  font-size: 23px;
+  font-style: italic;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navbar .container-fluid .navbar-brand .img-user{
+  width: 60px;
+  height: 60px;
+}
+
+.navbar .container-fluid .navbar-brand .img-cart{
+  width: 35px;
+  height: 32px;
+}
+
+.navbar .container-fluid .navbar-brand .dropdown-after-login{
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+.navbar .container-fluid .navbar-brand .dropdown-after-login:focus{
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* .navbar .container-fluid .navbar-brand .dropdown-after-login:active{
+  outline: none;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+} */
+
+/* Login Register */
+.navbar .container-fluid .navbar-brand .sign-btn{
+  background-color: #433434;
+  width: 100px;
+  height: 30px;
+  border: none;
+  outline: none;
+}
+
+.navbar .container-fluid .navbar-brand .sign-btn:focus{
+  border: none;
+  box-shadow: none !important;
+}
+
+.navbar .container-fluid .navbar-brand .text-form{
+  display: flex;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Navbar Dropdown */
+.navbar .container-fluid .navbar-brand .dropdown-container{
+  width: 240px;
+  margin-top: 5px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  padding: 20px ;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 4px 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.navbar .container-fluid .navbar-brand .dropdown-container::before{
+  content: "";
+  position: absolute;
+  top: -9%;
+  left: 76%;
+  transform: translateX(-50%);
+  border: 15px solid;
+  border-color: transparent transparent white;
+  
+}
+
+.navbar .container-fluid .navbar-brand .dropdown-container .menu-dropdown{
+  padding: 2px;
+  border-radius: 6px;
+}
+
+.navbar .container-fluid .navbar-brand .dropdown-container .menu-dropdown:hover{
+  background-color: #b1b1b196;
+
+}
+
+.navbar .container-fluid .navbar-brand .dropdown-container .menu-dropdown p {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+.navbar .container-fluid .navbar-brand .dropdown-container .menu-dropdown img {
+  margin-right: 12px;
+  margin-left: 5px;
+}
+
+/* Modal Login Register */
+.modal-container{
+  width: 416px;
+}
+.modal-container .modal-body{
+  text-align: center;
+  padding: 41px 33px;
+  border-radius: 10px;
+}
+
+.modal-container .modal-body .text-color{
+  text-align: start;
+  color: #FFC700;
+  font-weight: 700;
+  font-size: 36px;
+  margin-bottom: 29px;
+}
+
+.modal-container .modal-body .modal-form{
+  height: 50px;
+}
+
+.modal-container .modal-body .modal-form input{
+  height: 50px;
+  margin-top: 20px;
+  background-color: #d2d2d279;
+}
+
+.modal-container .modal-body .modal-form input::placeholder{
+  color: #B1B1B1, 100%;
+}
+
+.modal-container .modal-body .modal-form input:focus, .modal-container .modal-body .modal-form .btn-submit:focus, .modal-container .modal-body .modal-form select:focus{
+  border: none;
+  box-shadow: none !important;
+}
+
+.modal-container .modal-body .modal-form select, .modal-container .modal-body .modal-form select option{
+  background-color: #d2d2d279;
+  height: 50px;
+}
+
+.modal-container .modal-body .modal-form .btn-submit{
+  border-radius: 5px;
+  height: 50px;
+  background-color: #433434;
+  color: #FFF;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 36px;
+}
+
+.modal-container .modal-body .modal-form p{
+  color: #B1B1B1;
+  font-size: 18px;
+}
+
+.modal-container .modal-body .modal-form p .link{
+  text-decoration: none;
+  color: #B1B1B1;
+}
