@@ -5,6 +5,8 @@ import { UserContext } from "../../Contexts/userContext";
 import ICProfile from "../../Assets/Images/user.svg";
 import ICAddProduct from "../../Assets/Images/add-product.svg";
 import ICLogout from "../../Assets/Images/logout.svg";
+import Profil from "../../Assets/Images/profil-user.png";
+import ProfilPartner from "../../Assets/Images/profil-partner.png";
 
 import { Dropdown, Button } from "react-bootstrap";
 import Sign from "./Sign";
@@ -38,13 +40,19 @@ const Navbar = () => {
             <Sign handleLogin={loginUser} handleRegister={loginPartner} />
           ) : (
             <>
-              <img src="./images/cart-bag.png" alt="" className="img-cart" />
+              {!state.isPartner && (
+                <img src="./images/cart-bag.png" alt="" className="img-cart" />
+              )}
               <Dropdown className="ml-3">
                 <Dropdown.Toggle
                   variant="transparen"
                   className="dropdown-after-login"
                 >
-                  <img src="./images/profil1.png" alt="" className="img-user" />
+                  <img
+                    src={state.isPartner ? ProfilPartner : Profil}
+                    alt={state.isPartner ? ProfilPartner : Profil}
+                    className="img-user"
+                  />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="dropdown-container">
                   <Link

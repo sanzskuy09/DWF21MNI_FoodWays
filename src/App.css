@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -152,6 +153,14 @@
 .modal-container{
   width: 416px;
 }
+
+.modal-container .modal-body-login{
+  height: 400px;
+}
+.modal-container .modal-body-register{
+  height: 680px;
+}
+
 .modal-container .modal-body{
   text-align: center;
   padding: 41px 33px;
@@ -208,4 +217,72 @@
 .modal-container .modal-body .modal-form p .link{
   text-decoration: none;
   color: #B1B1B1;
+}
+
+/* Landing Pages */
+.hero-section .container .sub-hero .hero-text{
+  font-family: serif;
+  justify-self: start;
+  align-self: flex-start;
+  color: #433434;
+  font-size: 55px;
+  font-weight: 800;
+}
+
+.hero-section .container .sub-hero .hero-img{
+  width: 400px;
+  height: 390px;
+}
+
+.hero-section .container .sub-hero .subsuper-hero .line-hero{
+  width: 150px;
+  border-top: 2px solid black;
+  margin-top: 10px;
+}
+.hero-section .container .sub-hero .subsuper-hero .sub-text{
+  width: 300px;
+  height: 76px;
+  text-align: justify;
+}
+
+.hero-section .container .sub-hero .subsuper-hero .sub-text .hero-text-small{
+  font-size: 14px;
+  font-weight: normal;
+}
+
+/* Card Popular */
+.card-body .card-popular-img{
+  width: 65px;
+  height: 65px;
+}
+
+.card-body .card-text{
+  width: 100%;
+  margin-left: 15px;
+}
+
+.card-body .card-text h4{
+  font-family: serif;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+/* Card Reestaurant */
+.card-restaurant-body .card-img{
+  width: 224px;
+  height: 134px;
+  cursor: pointer;
+}
+
+.card-restaurant-body .card-title{
+  font-family: serif;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: start;
+}
+
+.card-restaurant-body .card-subtitle{
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 400;
 }

@@ -30,9 +30,9 @@ const Sign = ({ handleLogin, handleRegister }) => {
       <Modal
         show={showLogin}
         onHide={handleCloseLogin}
-        className="modal-container"
+        className="modal-container "
       >
-        <div className="modal-body">
+        <div className="modal-body modal-body-login">
           <h2 className="text-color">Login</h2>
           <div className="modal-form mb-3">
             <input
@@ -82,7 +82,7 @@ const Sign = ({ handleLogin, handleRegister }) => {
         onHide={handleCloseRegister}
         className="modal-container"
       >
-        <div class="modal-body">
+        <div class="modal-body modal-body-register">
           <h2 className="text-color">Register</h2>
           <div class="modal-form mb-3">
             <input
