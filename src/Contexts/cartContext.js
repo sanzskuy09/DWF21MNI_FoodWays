@@ -5,12 +5,18 @@ export const CartContext = createContext();
 const initialState = {
   isLogin: false,
   carts: [],
+  name: null,
 };
 
 const reducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case "RESTAURANT_NAME":
+      return {
+        ...state,
+        name: payload,
+      };
     case "ADD_CART":
       const findMenuToAdd = state.carts.find((cart) => cart.id === payload.id);
 
@@ -50,7 +56,7 @@ const reducer = (state, action) => {
           cart.id === payload.id
             ? {
                 ...cart,
-                qty: cart.qty - 1,
+                qty: cart.qty > 1 ? cart.qty - 1 : cart.qty,
               }
             : cart
         );

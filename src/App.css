@@ -40,7 +40,7 @@
 
 /* Delete effect Button Bootstrap */
 .modal-container .modal-body .modal-form input:focus, .modal-container .modal-body .modal-form .btn-submit:focus, .modal-container .modal-body .modal-form select:focus, .card-body-detail .btn-order:focus, .container-edit .profile .profile-wrapper .text-input .input-map:focus, .container-edit .profile .profile-wrapper .input-save .btn-save:focus, 
-.container-edit .profile .profile-wrapper .table-list .tb-action .btn-cancel:focus, .container-edit .profile .profile-wrapper .table-list .tb-action .btn-approve:focus, .container-order .content-wrapper .content .btn-counter:focus, .container-cart .content .content-left .btn-order:focus, .container-order .content-wrapper .content .btn:focus, .container-cart .input-group .btn-map:focus, .container-cart .input-group .input-map:focus{
+.container-edit .profile .profile-wrapper .table-list .tb-action .btn-cancel:focus, .container-edit .profile .profile-wrapper .table-list .tb-action .btn-approve:focus, .container-order .content-wrapper .content .btn-counter:focus, .container-cart .content .content-left .btn-order:focus, .container-order .content-wrapper .content .btn:focus, .container-cart .input-group .btn-map:focus, .container-cart .input-group .input-map:focus, .modal-mapbox .container .modal-delivery .btn-deliver .btn-confirm:focus{
   box-shadow: none !important;
 }
 
@@ -160,10 +160,10 @@
 }
 
 .modal-container .modal-body-login{
-  height: 400px;
+  height: auto;
 }
 .modal-container .modal-body-register{
-  height: 680px;
+  height: auto;
 }
 
 .modal-container .modal-body{
@@ -209,14 +209,19 @@
   margin-top: 36px;
 }
 
-.modal-container .modal-body .modal-form p{
+.modal-container .modal-body .sub-text{
+  padding-top: 10px;
+}
+
+.modal-container .modal-body p{
   color: #B1B1B1;
   font-size: 18px;
 }
 
-.modal-container .modal-body .modal-form p .link{
+.modal-container .modal-body p .link{
   text-decoration: none;
   color: #B1B1B1;
+  cursor: pointer;
 }
 
 /* Landing Pages */
@@ -310,19 +315,46 @@
   background-color: #FFC700;
   font-family: sans-serif;
   height: auto;
+  /* width: 50%; */
   font-size: 14px;
   font-weight: 600;
   margin-top: 15px;
 }
 
-.card-body-detail .btn-order:hover{
+.card-body-detail .btn-edit{
+  background-color: #FFC700;
+  font-family: sans-serif;
+  height: auto;
+  width: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.card-body-detail .btn-order:hover, .card-body-detail .btn-edit:hover{
   background-color: #ffc800de;
+}
+
+.card-body-detail .btn-delete{
+  background-color: #ff3300;
+  font-family: sans-serif;
+  width: 60%;
+  height: auto;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.card-body-detail .btn-delete:hover{
+  background-color: #ff3300d2;
 }
 
 /* Profile */
 .profile-container {
   display: flex;
-  padding: 73px 350px;
+  padding-top: 73px;
+  padding-left: 15vw;
+  padding-right: 15vw;
   justify-content: space-between;
 }
 
@@ -357,6 +389,14 @@
 }
 .profile-container .profile .profile-wrapper .right .bio p {
   font-size: 18px;
+}
+
+.profile-container .title-history{
+  font-family: serif;
+  font-size: 36px;
+  font-weight: 800;
+  text-align: left;
+  margin-bottom: 32px;
 }
 
 .profile-container .history .list-history {
@@ -403,18 +443,37 @@
 .profile-container .history .list-history .wrapper-history .right .status {
   width: 100%;
   height: 20px;
-  background-color: #00ff4825;
   text-align: center;
   margin-top: 12px;
-
+  background-color: #00b7ff2d;
+  color: #00D1FF;
 }
+
 .profile-container .history .list-history .wrapper-history .right .status p {
   font-size: 11px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 2px;
+}
+
+.profile-container .history .list-history .wrapper-history .right .status-success{
+  background-color: #00ff4825;
   color: #05d33f;
+}
+.profile-container .history .list-history .wrapper-history .right .status-otw{
+  
+}
+
+.profile-container .history .list-history .wrapper-history .right .status-cancel{
+  background-color: #ff000031;
+  color: #ff0000;
+}
+
+.profile-container .history .list-history .wrapper-history .right .status-waiting{
+  background-color: #ffe60060;
+  color: #ffd000;
 }
 
 /* Edit Profile */
@@ -659,3 +718,48 @@ input[type="file"]{
 }
 
 /* box-shadow: none !important; */
+
+/* Mapbox */
+.modal-mapbox .container .modal-delivery{
+  background-color: #FFF;
+  position: absolute;
+  bottom: 0;
+  width: 400px;
+  height: 185px;
+  border-radius: 5px 5px 0 0;
+}
+
+.modal-mapbox .container .modal-delivery .text-delivery strong{
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.modal-mapbox .container .modal-delivery .text-delivery .subtext-delivery .text-city{
+  font-size: 15px;
+  font-weight: 700;
+}
+.modal-mapbox .container .modal-delivery .text-delivery .subtext-delivery .text-address{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.modal-mapbox .container .modal-delivery .btn-deliver .btn-confirm{
+  font-family: sans-serif;
+  background-color: #433434;
+  color: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  height: 30px;
+}
+
+.modal-mapbox .container .modal-delivery .btn-deliver .btn-confirm:hover{
+  color: rgba(255, 255, 255, 0.767);
+}
+
+
+/* Sweat Alert */

@@ -10,7 +10,7 @@ const CardPopular = ({ PopularRestaurant }) => {
           width: "250px",
           height: "95px",
           borderRadius: "5px",
-          marginRight: "15px",
+          marginRight: "5px",
         }}
       >
         <Card.Body className="d-flex card-body">

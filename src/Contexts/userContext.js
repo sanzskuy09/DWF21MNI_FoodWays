@@ -13,6 +13,7 @@ const reducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case "EDIT_SUCCESS":
     case "AUTH_SUCCESS":
     case "LOGIN_SUCCESS":
       localStorage.setItem("token", payload.token);
@@ -21,8 +22,12 @@ const reducer = (state, action) => {
         ...state,
         isLogin: true,
         user: {
+          id: payload.id,
           email: payload.email,
           fullName: payload.fullName,
+          image: payload.image,
+          phone: payload.phone,
+          role: payload.role,
         },
         isPartner: payload.role == "partner" ? true : false,
         loading: false,

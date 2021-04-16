@@ -1,8 +1,7 @@
 import { Card, Col } from "react-bootstrap";
 
-const CardProductDetail = ({ product, addMenuToCart }) => {
+const CardDetailPartner = ({ product, handleDelete }) => {
   const { id, title, image, price } = product;
-
   return (
     <div>
       <Col className="mb-4 mr-auto">
@@ -25,13 +24,14 @@ const CardProductDetail = ({ product, addMenuToCart }) => {
                 Rp {Number(price).toLocaleString()}
               </Card.Subtitle>
             </div>
-            <div className="align-self-stretch">
+            <div className="d-flex justify-content-center">
+              <button className="btn btn-edit">Edit</button>
               <button
-                className="btn btn-order btn-block"
-                onClick={() => addMenuToCart(product)}
+                className="btn btn-delete ml-3"
+                onClick={() => handleDelete(id)}
               >
-                Order
-              </button>{" "}
+                Delete
+              </button>
             </div>
           </Card.Body>
         </Card>
@@ -40,4 +40,4 @@ const CardProductDetail = ({ product, addMenuToCart }) => {
   );
 };
 
-export default CardProductDetail;
+export default CardDetailPartner;

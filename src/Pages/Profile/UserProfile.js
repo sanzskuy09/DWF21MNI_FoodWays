@@ -1,9 +1,29 @@
 import { Link } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import { useMutation, useQuery } from "react-query";
+import { API, setAuthToken } from "../../Config/api";
+
+import { UserContext } from "../../Contexts/userContext";
 
 import FullProfile from "./../../Assets/Images/full-profile.png";
-import Logo from "./../../Assets/Images/logo.svg";
+import HistoryTransaction from "../../Component/Profile/HistoryTransaction";
 
 const UserProfile = () => {
+  const [state] = useContext(UserContext);
+  const { id, fullName, email, phone, image, role } = state.user;
+
+  const { data: transactionData, refecth } = useQuery(
+    "historyCache",
+    async () => {
+      const response = await API.get(
+        role === "partner" ? "/transactions" : "/my-transactions"
+      );
+      return response.data.data.transactions;
+    }
+  );
+
+  console.log(transactionData);
+
   return (
     <div>
       <div className="profile-container">
@@ -12,7 +32,7 @@ const UserProfile = () => {
           <div className="profile-wrapper">
             <div className="left">
               <div className="img-wrapper">
-                <img src={FullProfile} alt="" />
+                <img src={FullProfile} />
               </div>
               <Link to="/edit-user">
                 <button>Edit Profile</button>
@@ -21,42 +41,26 @@ const UserProfile = () => {
             <div className="right">
               <div className="bio">
                 <b>Full Name</b>
-                <p>Andi</p>
+                <p>{fullName}</p>
               </div>
               <div className="bio">
                 <b>Email</b>
-                <p>andi@email.com</p>
+                <p>{email}</p>
               </div>
               <div className="bio">
                 <b>Phone</b>
-                <p>083896833122</p>
+                <p>{phone}</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="history">
-          <h3 className="title-profile">History Transactions</h3>
-          <div className="list-history">
-            <div className="wrapper-history">
-              <div className="left">
-                <p className="title">Geprek Bensu</p>
-                <p className="date">
-                  <b>Saturday</b>, 12 March 2021
-                </p>
-                <p className="total">
-                  <b>Total</b> : Rp 45.000
-                </p>
-              </div>
-              <div className="right d-flex flex-lg-column">
-                <div className="logo">
-                  <img src={Logo} alt="" />
-                </div>
-                <div className="status mt-4">
-                  <p>Finished</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="d-flex flex-column">
+          <h3 className="title-history">
+            History {role === "partner" ? "Transactions" : "Orders"}
+          </h3>
+          {transactionData?.map((history) => (
+            <HistoryTransaction history={history} key={history.id} />
+          ))}
         </div>
       </div>
     </div>

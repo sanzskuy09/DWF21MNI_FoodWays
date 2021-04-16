@@ -5,7 +5,7 @@ import Logo from "./../../Assets/Images/logo.svg";
 
 const PartnerProfile = () => {
   return (
-    <div>
+    <div className="">
       <div className="profile-container">
         <div className="profile">
           <h3 className="title-profile">Profile Partner</h3>

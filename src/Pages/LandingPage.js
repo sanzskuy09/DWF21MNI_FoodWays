@@ -1,11 +1,29 @@
+import { useContext } from "react";
+import { useMutation, useQuery } from "react-query";
+import { API, setAuthToken } from "./../Config/api";
+import { UserContext } from "../Contexts/userContext";
+
 import { Container, Jumbotron, Row } from "react-bootstrap";
 import HeroImage from "../Assets/Images/Hero.png";
 
 import CardPopular from "../Component/LandingPage/CardPopular";
 import CardRestaurant from "../Component/LandingPage/CardRestaurant";
-import { PopularRestaurants, Restaurants } from "../API/data";
+import { PopularRestaurants } from "../API/data";
 
 const LandingPage = () => {
+  const [state] = useContext(UserContext);
+
+  const { data: userData } = useQuery("userCache", async () => {
+    const response = await API.get("/users");
+    return response;
+  });
+
+  const filterUserData = userData?.data?.data?.users.filter(
+    (user) => user.role == "partner"
+  );
+
+  console.log(state.user);
+
   return (
     <>
       {/* Hero Section */}
@@ -49,7 +67,7 @@ const LandingPage = () => {
           >
             Popular Restaurant
           </h2>
-          <Row xs={1} md={4} className="d-flex flex-wrap ">
+          <Row className="d-flex">
             {PopularRestaurants.map((PopularRestaurant) => (
               <CardPopular PopularRestaurant={PopularRestaurant} />
             ))}
@@ -70,10 +88,10 @@ const LandingPage = () => {
           >
             Restaurant Near You
           </h2>
-          <Row xs={1} md={4} className="d-flex">
-            {Restaurants.map((Restaurant) => (
-              <div key={Restaurant.id}>
-                <CardRestaurant Restaurant={Restaurant} />
+          <Row className="d-flex">
+            {filterUserData?.map((user) => (
+              <div>
+                <CardRestaurant user={user} key={user.id} />
               </div>
             ))}
           </Row>

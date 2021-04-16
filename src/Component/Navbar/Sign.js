@@ -1,23 +1,22 @@
 import { useState, useContext } from "react";
+import { useMutation, useQuery } from "react-query";
+import { useHistory } from "react-router-dom";
+
 import { API, setAuthToken } from "../../Config/api";
+
 import { UserContext } from "../../Contexts/userContext";
 
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
-const Sign = ({ handleRegister }) => {
+const Sign = ({ showLogin, setShowLogin, changeModal }) => {
+  const history = useHistory();
+
   const [state, dispatch] = useContext(UserContext);
-
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-
-  const handleCloseLogin = () => setShowLogin(false);
-  const handleCloseRegister = () => setShowRegister(false);
 
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
   const { email, password } = form;
 
   const onChange = (e) => {
@@ -27,61 +26,62 @@ const Sign = ({ handleRegister }) => {
     });
   };
 
+  const { data: userData, isLoading, isError, refetch } = useQuery(
+    "userCache",
+    async () => {
+      const response = await API.get("/users");
+      return response;
+    }
+  );
+
+  const submitLogin = useMutation(async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({
+      email,
+      password,
+    });
+
+    const response = await API.post("/login", body, config);
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: response.data.data.user,
+    });
+
+    setAuthToken(response.data.data.user.token);
+    {
+      response.data.data.user.role == "partner" && history.push("/dashboard");
+    }
+    refetch();
+  });
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      const body = JSON.stringify({
-        email,
-        password,
-      });
-
-      const response = await API.post("/login", body, config);
-
-      dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: response.data.data.user,
-      });
-
-      setAuthToken(response.data.data.token);
-      console.log(response.data.data.user);
-    } catch (error) {
-      console.log(error);
-    }
+    submitLogin.mutate();
   };
 
   return (
     <>
-      <Button
-        variant="transparent"
-        className="sign-btn text-form"
-        onClick={() => setShowRegister(true)}
-      >
-        Register
-      </Button>
-
-      <Button
-        variant="transparent"
-        className="sign-btn text-form ml-3"
-        onClick={() => setShowLogin(true)}
-      >
-        Login
-      </Button>
-
       <Modal
         show={showLogin}
-        onHide={handleCloseLogin}
-        className="modal-container "
+        onHide={setShowLogin}
+        centered
+        className="modal-container"
       >
         <div className="modal-body modal-body-login">
           <form action="" onSubmit={(e) => onSubmit(e)}>
             <h2 className="text-color">Login</h2>
-            {/* <pre>{JSON.stringify(form, null, 2)}</pre> */}
+
+            {submitLogin.error?.response?.data && (
+              <div class="alert alert-danger" role="alert">
+                {submitLogin.error?.response?.data?.message}
+              </div>
+            )}
+
             <div className="modal-form mb-3">
               <input
                 type="text"
@@ -89,7 +89,7 @@ const Sign = ({ handleRegister }) => {
                 value={email}
                 onChange={(e) => onChange(e)}
                 className="form-control"
-                id="exampleFormControlInput1"
+                autoComplete="off"
                 placeholder="Email"
               />
             </div>
@@ -108,112 +108,20 @@ const Sign = ({ handleRegister }) => {
               <button
                 type="submit"
                 className="btn btn-submit btn-block"
-                // onClick={handleLogin}
+                disabled={!email || !password ? true : false}
               >
                 Login
               </button>
             </div>
-            <div className="modal-form mb-3">
+            <div className="d-flex justify-content-center sub-text">
               <p>
-                Dont have an account ? Click{" "}
-                <a
-                  href="#"
-                  className="link"
-                  onClick={() => {
-                    handleCloseLogin();
-                    setShowRegister(true);
-                  }}
-                >
+                Already have an account ? Click{" "}
+                <span className="link" onClick={changeModal}>
                   <strong>Here</strong>
-                </a>
+                </span>
               </p>
             </div>
           </form>
-        </div>
-      </Modal>
-
-      <Modal
-        show={showRegister}
-        onHide={handleCloseRegister}
-        className="modal-container"
-      >
-        <div class="modal-body modal-body-register">
-          <h2 className="text-color">Register</h2>
-          <div class="modal-form mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Email"
-            />
-          </div>
-          <div class="modal-form mb-3">
-            <input
-              type="password"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Password"
-            />
-          </div>
-          <div class="modal-form mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Full Name"
-            />
-          </div>
-          <div class="modal-form mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Gender"
-            />
-          </div>
-          <div class="modal-form mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Phone"
-            />
-          </div>
-          <div class="modal-form mb-3">
-            <select
-              class="form-control custom-select"
-              aria-label="Default select example"
-            >
-              <option value="User" selected>
-                As User
-              </option>
-              <option value="Parter">Partner</option>
-            </select>
-          </div>
-          <div class="modal-form mb-3">
-            <button
-              type="submit"
-              class="btn btn-submit btn-block"
-              onClick={handleRegister}
-            >
-              Register
-            </button>
-          </div>
-          <div class="modal-form mb-3">
-            <p>
-              Already have an account ? Click{" "}
-              <a
-                href="#"
-                className="link"
-                onClick={() => {
-                  handleCloseRegister();
-                  setShowLogin(true);
-                }}
-              >
-                <strong>Here</strong>
-              </a>
-            </p>
-          </div>
         </div>
       </Modal>
     </>

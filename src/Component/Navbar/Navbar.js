@@ -1,5 +1,7 @@
-import { useContext, useEffect } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Dropdown, Button } from "react-bootstrap";
+
 import { UserContext } from "../../Contexts/userContext";
 
 import ICProfile from "../../Assets/Images/user.svg";
@@ -8,17 +10,26 @@ import ICLogout from "../../Assets/Images/logout.svg";
 import Profil from "../../Assets/Images/profil-user.png";
 import ProfilPartner from "../../Assets/Images/profil-partner.png";
 
-import { Dropdown, Button } from "react-bootstrap";
 import Sign from "./Sign";
+import Register from "./Register";
 
 const Navbar = () => {
   const [state, dispatch] = useContext(UserContext);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const history = useHistory();
 
-  const login = () => {
-    dispatch({
-      type: "LOGIN_SUCCESS",
-    });
+  const openModalRegister = () => {
+    setShowRegister((prev) => !prev);
+  };
+
+  const openModalLogin = () => {
+    setShowLogin((prev) => !prev);
+  };
+
+  const changeModal = () => {
+    setShowRegister((prev) => !prev);
+    setShowLogin((prev) => !prev);
   };
 
   const Logout = () => {
@@ -41,10 +52,36 @@ const Navbar = () => {
         </div>
         <div className="navbar-brand d-flex align-items-center">
           {!state.isLogin ? (
-            <Sign handleLogin={login} />
+            <>
+              <Button
+                variant="transparent"
+                className="sign-btn text-form"
+                onClick={openModalRegister}
+              >
+                Register
+              </Button>
+              <Button
+                variant="transparent"
+                className="sign-btn text-form ml-3"
+                onClick={openModalLogin}
+              >
+                Login
+              </Button>
+              {/* modal */}
+              <Register
+                showRegister={showRegister}
+                setShowRegister={setShowRegister}
+                changeModal={changeModal}
+              />
+              <Sign
+                showLogin={showLogin}
+                setShowLogin={setShowLogin}
+                changeModal={changeModal}
+              />
+            </>
           ) : (
             <>
-              {state.isPartner && history.push("/dashboard")}
+              {/* {state.isPartner && history.push("/dashboard")} */}
               {!state.isPartner && (
                 <Link to="/cart">
                   <img
@@ -67,7 +104,7 @@ const Navbar = () => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="dropdown-container">
                   <Link
-                    to={state.isPartner ? "/profile-partner" : "/profile-user"}
+                    to={"/profile-user"}
                     style={{ textDecoration: "none", color: "#000000" }}
                   >
                     <div className="menu-dropdown d-flex ">
